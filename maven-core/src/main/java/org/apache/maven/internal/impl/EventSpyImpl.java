@@ -31,7 +31,7 @@ import org.apache.maven.execution.ExecutionEvent;
 
 @Named
 @Singleton
-public class EventSpyImpl implements EventSpy {
+final class EventSpyImpl implements EventSpy {
 
     private DefaultSessionFactory sessionFactory;
 

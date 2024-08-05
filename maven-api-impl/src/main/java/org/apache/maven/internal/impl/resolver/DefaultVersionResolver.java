@@ -61,6 +61,8 @@ import org.eclipse.aether.resolution.VersionResult;
 import org.eclipse.aether.spi.synccontext.SyncContextFactory;
 import org.eclipse.aether.util.ConfigUtils;
 
+import static org.apache.maven.internal.impl.DefaultModelVersionParser.SNAPSHOT;
+
 /**
  */
 @Named
@@ -72,8 +74,6 @@ public class DefaultVersionResolver implements VersionResolver {
     private static final String RELEASE = "RELEASE";
 
     private static final String LATEST = "LATEST";
-
-    private static final String SNAPSHOT = "SNAPSHOT";
 
     private final MetadataResolver metadataResolver;
     private final SyncContextFactory syncContextFactory;

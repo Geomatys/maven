@@ -29,8 +29,6 @@ import org.eclipse.aether.artifact.Artifact;
 /**
  */
 abstract class MavenSnapshotMetadata extends MavenMetadata {
-    static final String SNAPSHOT = "SNAPSHOT";
-
     protected final Collection<Artifact> artifacts = new ArrayList<>();
 
     protected MavenSnapshotMetadata(Metadata metadata, Path path, Date timestamp) {

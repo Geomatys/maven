@@ -32,7 +32,7 @@ import static org.apache.maven.internal.impl.Utils.nonNull;
 
 @Named
 @Singleton
-public class DefaultDependencyCoordinateFactory implements DependencyCoordinateFactory {
+final class DefaultDependencyCoordinateFactory implements DependencyCoordinateFactory {
 
     @Nonnull
     @Override

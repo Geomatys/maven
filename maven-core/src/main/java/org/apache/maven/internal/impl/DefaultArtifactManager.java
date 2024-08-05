@@ -66,7 +66,7 @@ public class DefaultArtifactManager implements ArtifactManager {
         }
         Path path = paths.get(id);
         if (path == null && artifact instanceof DefaultArtifact) {
-            path = ((DefaultArtifact) artifact).getArtifact().getPath();
+            path = ((DefaultArtifact) artifact).artifact.getPath();
         }
         return Optional.ofNullable(path);
     }

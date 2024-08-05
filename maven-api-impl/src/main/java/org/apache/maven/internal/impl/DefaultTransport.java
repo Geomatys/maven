@@ -33,11 +33,11 @@ import org.eclipse.aether.spi.connector.transport.Transporter;
 
 import static java.util.Objects.requireNonNull;
 
-public class DefaultTransport implements Transport {
+final class DefaultTransport implements Transport {
     private final URI baseURI;
     private final Transporter transporter;
 
-    public DefaultTransport(URI baseURI, Transporter transporter) {
+    DefaultTransport(URI baseURI, Transporter transporter) {
         this.baseURI = requireNonNull(baseURI);
         this.transporter = requireNonNull(transporter);
     }

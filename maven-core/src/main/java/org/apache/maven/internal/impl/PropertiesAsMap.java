@@ -25,7 +25,7 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
-class PropertiesAsMap extends AbstractMap<String, String> {
+final class PropertiesAsMap extends AbstractMap<String, String> {
 
     private final Map<Object, Object> properties;
 

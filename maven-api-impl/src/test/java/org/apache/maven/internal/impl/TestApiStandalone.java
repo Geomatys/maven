@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.maven.internal.impl.standalone;
+package org.apache.maven.internal.impl;
 
 import java.nio.file.Files;
 import java.nio.file.Path;

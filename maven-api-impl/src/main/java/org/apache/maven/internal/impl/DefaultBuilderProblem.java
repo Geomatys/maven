@@ -25,7 +25,7 @@ import org.apache.maven.api.services.BuilderProblem;
  * thrown or a simple string message. In addition, a problem carries a hint about its source, e.g. the settings file
  * that exhibits the problem.
  */
-class DefaultBuilderProblem implements BuilderProblem {
+final class DefaultBuilderProblem implements BuilderProblem {
     final String source;
     final int lineNumber;
     final int columnNumber;

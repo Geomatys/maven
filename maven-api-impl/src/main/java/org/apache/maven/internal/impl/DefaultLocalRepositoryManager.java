@@ -30,7 +30,7 @@ import org.apache.maven.api.services.LocalRepositoryManager;
 
 @Named
 @Singleton
-public class DefaultLocalRepositoryManager implements LocalRepositoryManager {
+final class DefaultLocalRepositoryManager implements LocalRepositoryManager {
 
     @Override
     public Path getPathForLocalArtifact(Session session, LocalRepository local, Artifact artifact) {

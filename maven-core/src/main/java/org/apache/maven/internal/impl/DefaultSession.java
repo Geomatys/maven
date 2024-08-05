@@ -79,6 +79,7 @@ public class DefaultSession extends AbstractSession implements InternalMavenSess
         this.runtimeInformation = runtimeInformation;
     }
 
+    @Override
     public MavenSession getMavenSession() {
         if (mavenSession == null) {
             throw new IllegalArgumentException("Found null mavenSession on session " + this);
@@ -171,7 +172,7 @@ public class DefaultSession extends AbstractSession implements InternalMavenSess
             MojoExecution mojoExecution = lookup.lookup(MojoExecution.class);
             MojoDescriptor mojoDescriptor = mojoExecution.getMojoDescriptor();
             PluginDescriptor pluginDescriptor = mojoDescriptor.getPluginDescriptor();
-            return getMavenSession().getPluginContext(pluginDescriptor, ((DefaultProject) project).getProject());
+            return getMavenSession().getPluginContext(pluginDescriptor, ((DefaultProject) project).project);
         } catch (LookupException e) {
             throw new MavenException("The PluginContext is only available during a mojo execution", e);
         }
@@ -200,7 +201,7 @@ public class DefaultSession extends AbstractSession implements InternalMavenSess
 
     public ArtifactRepository toArtifactRepository(RemoteRepository repository) {
         if (repository instanceof DefaultRemoteRepository) {
-            org.eclipse.aether.repository.RemoteRepository rr = ((DefaultRemoteRepository) repository).getRepository();
+            org.eclipse.aether.repository.RemoteRepository rr = ((DefaultRemoteRepository) repository).repository;
 
             try {
                 return mavenRepositorySystem.createRepository(

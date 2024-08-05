@@ -36,11 +36,11 @@ import static java.util.Objects.requireNonNull;
 
 @Named
 @Singleton
-public class DefaultTransportProvider implements TransportProvider {
+final class DefaultTransportProvider implements TransportProvider {
     private final org.eclipse.aether.spi.connector.transport.TransporterProvider transporterProvider;
 
     @Inject
-    public DefaultTransportProvider(TransporterProvider transporterProvider) {
+    DefaultTransportProvider(TransporterProvider transporterProvider) {
         this.transporterProvider = requireNonNull(transporterProvider);
     }
 
@@ -52,7 +52,7 @@ public class DefaultTransportProvider implements TransportProvider {
                     baseURI,
                     transporterProvider.newTransporter(
                             InternalSession.from(session).getSession(),
-                            ((DefaultRemoteRepository) repository).getRepository()));
+                            ((DefaultRemoteRepository) repository).repository));
         } catch (URISyntaxException e) {
             throw new TransportProviderException("Remote repository URL invalid", e);
         } catch (NoTransporterException e) {

@@ -64,7 +64,7 @@ import static org.apache.maven.internal.impl.Utils.nonNull;
 
 @Named
 @Singleton
-public class DefaultDependencyResolver implements DependencyResolver {
+final class DefaultDependencyResolver implements DependencyResolver {
 
     @Nonnull
     @Override

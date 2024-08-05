@@ -29,11 +29,11 @@ import static org.apache.maven.internal.impl.Utils.nonNull;
 /**
  * A wrapper class around a maven resolver artifact.
  */
-public class DefaultArtifactCoordinate implements ArtifactCoordinate {
+final class DefaultArtifactCoordinate implements ArtifactCoordinate {
     private final @Nonnull InternalSession session;
     private final @Nonnull org.eclipse.aether.artifact.Artifact coordinate;
 
-    public DefaultArtifactCoordinate(
+    DefaultArtifactCoordinate(
             @Nonnull InternalSession session, @Nonnull org.eclipse.aether.artifact.Artifact coordinate) {
         this.session = nonNull(session, "session");
         this.coordinate = nonNull(coordinate, "coordinate");

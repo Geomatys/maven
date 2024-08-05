@@ -45,7 +45,7 @@ public class StaxLocation implements Location {
         return message;
     }
 
-    public StaxLocation(javax.xml.stream.Location location) {
+    StaxLocation(javax.xml.stream.Location location) {
         this.location = location;
     }
 

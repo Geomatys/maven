@@ -35,6 +35,8 @@ import org.apache.maven.api.metadata.SnapshotVersion;
 import org.apache.maven.api.metadata.Versioning;
 import org.eclipse.aether.artifact.Artifact;
 
+import static org.apache.maven.internal.impl.DefaultModelVersionParser.SNAPSHOT;
+
 /**
  * Maven remote GAV level metadata.
  */

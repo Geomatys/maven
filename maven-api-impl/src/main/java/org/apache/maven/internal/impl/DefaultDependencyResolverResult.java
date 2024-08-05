@@ -51,7 +51,7 @@ import org.apache.maven.api.services.DependencyResolverResult;
  *
  * @see DefaultDependencyResolver#resolve(DependencyResolverRequest)
  */
-class DefaultDependencyResolverResult implements DependencyResolverResult {
+final class DefaultDependencyResolverResult implements DependencyResolverResult {
     /**
      * The exceptions that occurred while building the dependency graph.
      */

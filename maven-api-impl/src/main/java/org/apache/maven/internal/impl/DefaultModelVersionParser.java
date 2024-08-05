@@ -36,7 +36,7 @@ import static java.util.Objects.requireNonNull;
 @Named
 @Singleton
 public class DefaultModelVersionParser implements ModelVersionParser {
-    private static final String SNAPSHOT = "SNAPSHOT";
+    public static final String SNAPSHOT = "SNAPSHOT";
     private static final Pattern SNAPSHOT_TIMESTAMP = Pattern.compile("^(.*-)?([0-9]{8}\\.[0-9]{6}-[0-9]+)$");
     private final VersionScheme versionScheme;
 
@@ -72,7 +72,7 @@ public class DefaultModelVersionParser implements ModelVersionParser {
         return new DefaultVersionConstraint(versionScheme, constraint);
     }
 
-    static class DefaultVersion implements Version {
+    private static class DefaultVersion implements Version {
         private final VersionScheme versionScheme;
         private final org.eclipse.aether.version.Version delegate;
 
@@ -127,7 +127,7 @@ public class DefaultModelVersionParser implements ModelVersionParser {
         }
     }
 
-    static class DefaultVersionRange implements VersionRange {
+    private static class DefaultVersionRange implements VersionRange {
         private final VersionScheme versionScheme;
         private final org.eclipse.aether.version.VersionRange delegate;
 
@@ -220,7 +220,7 @@ public class DefaultModelVersionParser implements ModelVersionParser {
         }
     }
 
-    static class DefaultVersionConstraint implements VersionConstraint {
+    private static class DefaultVersionConstraint implements VersionConstraint {
         private final VersionScheme versionScheme;
         private final org.eclipse.aether.version.VersionConstraint delegate;
 

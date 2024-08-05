@@ -27,11 +27,11 @@ import org.apache.maven.api.Project;
 import org.apache.maven.api.Session;
 import org.apache.maven.execution.ExecutionEvent;
 
-public class DefaultEvent implements Event {
+final class DefaultEvent implements Event {
     private final InternalMavenSession session;
     private final ExecutionEvent delegate;
 
-    public DefaultEvent(InternalMavenSession session, ExecutionEvent delegate) {
+    DefaultEvent(InternalMavenSession session, ExecutionEvent delegate) {
         this.session = session;
         this.delegate = delegate;
     }

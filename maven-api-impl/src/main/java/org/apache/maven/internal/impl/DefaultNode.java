@@ -32,13 +32,13 @@ import org.eclipse.aether.graph.DependencyNode;
 import org.eclipse.aether.util.graph.manager.DependencyManagerUtils;
 import org.eclipse.aether.util.graph.transformer.ConflictResolver;
 
-public class DefaultNode extends AbstractNode {
+final class DefaultNode extends AbstractNode {
 
     protected final @Nonnull InternalSession session;
     protected final @Nonnull org.eclipse.aether.graph.DependencyNode node;
     protected final boolean verbose;
 
-    public DefaultNode(
+    DefaultNode(
             @Nonnull InternalSession session, @Nonnull org.eclipse.aether.graph.DependencyNode node, boolean verbose) {
         this.session = session;
         this.node = node;

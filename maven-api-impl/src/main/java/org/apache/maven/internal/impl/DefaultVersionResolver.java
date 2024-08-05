@@ -39,12 +39,12 @@ import static org.apache.maven.internal.impl.Utils.nonNull;
 
 @Named
 @Singleton
-public class DefaultVersionResolver implements VersionResolver {
+final class DefaultVersionResolver implements VersionResolver {
 
     private final RepositorySystem repositorySystem;
 
     @Inject
-    public DefaultVersionResolver(RepositorySystem repositorySystem) {
+    DefaultVersionResolver(RepositorySystem repositorySystem) {
         this.repositorySystem = repositorySystem;
     }
 

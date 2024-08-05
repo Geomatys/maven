@@ -30,7 +30,7 @@ import org.apache.maven.api.model.Dependency;
 import org.apache.maven.api.model.Parent;
 import org.apache.maven.api.services.ModelResolver;
 import org.apache.maven.api.services.ModelResolverException;
-import org.apache.maven.internal.impl.standalone.ApiRunner;
+import org.apache.maven.internal.impl.ApiRunner;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

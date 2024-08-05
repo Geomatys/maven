@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.maven.internal.impl.standalone;
+package org.apache.maven.internal.impl;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -57,32 +57,6 @@ import org.apache.maven.api.spi.TypeProvider;
 import org.apache.maven.di.Injector;
 import org.apache.maven.di.Key;
 import org.apache.maven.di.impl.DIException;
-import org.apache.maven.internal.impl.AbstractSession;
-import org.apache.maven.internal.impl.DefaultArtifactCoordinateFactory;
-import org.apache.maven.internal.impl.DefaultArtifactDeployer;
-import org.apache.maven.internal.impl.DefaultArtifactFactory;
-import org.apache.maven.internal.impl.DefaultArtifactInstaller;
-import org.apache.maven.internal.impl.DefaultArtifactResolver;
-import org.apache.maven.internal.impl.DefaultChecksumAlgorithmService;
-import org.apache.maven.internal.impl.DefaultDependencyCoordinateFactory;
-import org.apache.maven.internal.impl.DefaultDependencyResolver;
-import org.apache.maven.internal.impl.DefaultLocalRepositoryManager;
-import org.apache.maven.internal.impl.DefaultMessageBuilderFactory;
-import org.apache.maven.internal.impl.DefaultModelUrlNormalizer;
-import org.apache.maven.internal.impl.DefaultModelVersionParser;
-import org.apache.maven.internal.impl.DefaultModelXmlFactory;
-import org.apache.maven.internal.impl.DefaultPluginConfigurationExpander;
-import org.apache.maven.internal.impl.DefaultRepositoryFactory;
-import org.apache.maven.internal.impl.DefaultSettingsBuilder;
-import org.apache.maven.internal.impl.DefaultSettingsXmlFactory;
-import org.apache.maven.internal.impl.DefaultSuperPomProvider;
-import org.apache.maven.internal.impl.DefaultToolchainsBuilder;
-import org.apache.maven.internal.impl.DefaultToolchainsXmlFactory;
-import org.apache.maven.internal.impl.DefaultTransportProvider;
-import org.apache.maven.internal.impl.DefaultUrlNormalizer;
-import org.apache.maven.internal.impl.DefaultVersionParser;
-import org.apache.maven.internal.impl.ExtensibleEnumRegistries;
-import org.apache.maven.internal.impl.InternalSession;
 import org.apache.maven.internal.impl.model.BuildModelTransformer;
 import org.apache.maven.internal.impl.model.DefaultDependencyManagementImporter;
 import org.apache.maven.internal.impl.model.DefaultDependencyManagementInjector;

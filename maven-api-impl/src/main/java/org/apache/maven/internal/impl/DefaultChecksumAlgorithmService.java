@@ -45,11 +45,11 @@ import static org.apache.maven.internal.impl.Utils.nonNull;
 
 @Named
 @Singleton
-public class DefaultChecksumAlgorithmService implements ChecksumAlgorithmService {
+final class DefaultChecksumAlgorithmService implements ChecksumAlgorithmService {
     private final ChecksumAlgorithmFactorySelector checksumAlgorithmFactorySelector;
 
     @Inject
-    public DefaultChecksumAlgorithmService(ChecksumAlgorithmFactorySelector checksumAlgorithmFactorySelector) {
+    DefaultChecksumAlgorithmService(ChecksumAlgorithmFactorySelector checksumAlgorithmFactorySelector) {
         this.checksumAlgorithmFactorySelector =
                 nonNull(checksumAlgorithmFactorySelector, "checksumAlgorithmFactorySelector");
     }

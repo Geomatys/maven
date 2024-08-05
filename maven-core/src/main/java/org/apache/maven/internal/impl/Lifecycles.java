@@ -25,7 +25,9 @@ import org.apache.maven.api.Lifecycle;
 import org.apache.maven.api.model.Plugin;
 import org.apache.maven.api.model.PluginExecution;
 
-public class Lifecycles {
+final class Lifecycles {
+
+    private Lifecycles() {}
 
     static Lifecycle.Phase phase(String name) {
         return new DefaultPhase(name, Collections.emptyList(), Collections.emptyList());
@@ -49,7 +51,7 @@ public class Lifecycles {
                 .build();
     }
 
-    static class DefaultPhase implements Lifecycle.Phase {
+    private static class DefaultPhase implements Lifecycle.Phase {
         private final String name;
         private final List<Plugin> plugins;
         private final List<Lifecycle.Phase> phases;

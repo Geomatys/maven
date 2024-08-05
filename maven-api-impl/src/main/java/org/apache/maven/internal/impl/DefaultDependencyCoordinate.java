@@ -26,8 +26,8 @@ import org.apache.maven.api.VersionConstraint;
 import org.apache.maven.api.annotations.Nonnull;
 import org.apache.maven.api.annotations.Nullable;
 
-public class DefaultDependencyCoordinate extends AetherDependencyWrapper implements DependencyCoordinate {
-    public DefaultDependencyCoordinate(
+final class DefaultDependencyCoordinate extends AetherDependencyWrapper implements DependencyCoordinate {
+    DefaultDependencyCoordinate(
             @Nonnull InternalSession session, @Nonnull org.eclipse.aether.graph.Dependency dependency) {
         super(session, dependency);
     }

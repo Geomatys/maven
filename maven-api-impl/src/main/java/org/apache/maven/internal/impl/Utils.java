@@ -23,7 +23,9 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-class Utils {
+final class Utils {
+    private Utils() {}
+
     static <T> T nonNull(T t) {
         if (t == null) {
             throw new IllegalArgumentException();

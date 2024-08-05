@@ -26,12 +26,11 @@ import org.apache.maven.api.DependencyCoordinate;
 import org.apache.maven.api.Version;
 import org.apache.maven.api.annotations.Nonnull;
 
-public class DefaultDependency extends AetherDependencyWrapper implements Dependency {
+final class DefaultDependency extends AetherDependencyWrapper implements Dependency {
 
     private final String key;
 
-    public DefaultDependency(
-            @Nonnull InternalSession session, @Nonnull org.eclipse.aether.graph.Dependency dependency) {
+    DefaultDependency(@Nonnull InternalSession session, @Nonnull org.eclipse.aether.graph.Dependency dependency) {
         super(session, dependency);
         this.key = getGroupId()
                 + ':'

@@ -21,15 +21,11 @@ package org.apache.maven.internal.impl;
 import org.apache.maven.api.RemoteRepository;
 import org.apache.maven.api.annotations.Nonnull;
 
-public class DefaultRemoteRepository implements RemoteRepository {
-    private final org.eclipse.aether.repository.RemoteRepository repository;
+final class DefaultRemoteRepository implements RemoteRepository {
+    final org.eclipse.aether.repository.RemoteRepository repository;
 
-    public DefaultRemoteRepository(org.eclipse.aether.repository.RemoteRepository repository) {
+    DefaultRemoteRepository(org.eclipse.aether.repository.RemoteRepository repository) {
         this.repository = repository;
-    }
-
-    public org.eclipse.aether.repository.RemoteRepository getRepository() {
-        return repository;
     }
 
     @Nonnull

@@ -73,6 +73,8 @@ import org.apache.maven.api.services.model.ModelVersionProcessor;
 import org.apache.maven.model.v4.MavenModelVersion;
 import org.apache.maven.model.v4.MavenTransformer;
 
+import static org.apache.maven.internal.impl.DefaultModelVersionParser.SNAPSHOT;
+
 /**
  */
 @Named
@@ -1852,7 +1854,7 @@ public class DefaultModelValidator implements ModelValidator {
             return true;
         }
 
-        if (string.endsWith("SNAPSHOT") && !string.endsWith("-SNAPSHOT")) {
+        if (string.endsWith(SNAPSHOT) && !string.endsWith("-SNAPSHOT")) {
             addViolation(
                     problems,
                     severity,

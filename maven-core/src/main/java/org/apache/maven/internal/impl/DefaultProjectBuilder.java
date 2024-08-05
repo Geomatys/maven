@@ -50,12 +50,12 @@ import org.apache.maven.project.ProjectBuildingResult;
 
 @Named
 @Singleton
-public class DefaultProjectBuilder implements ProjectBuilder {
+final class DefaultProjectBuilder implements ProjectBuilder {
 
     private final org.apache.maven.project.ProjectBuilder builder;
 
     @Inject
-    public DefaultProjectBuilder(org.apache.maven.project.ProjectBuilder builder) {
+    DefaultProjectBuilder(org.apache.maven.project.ProjectBuilder builder) {
         this.builder = builder;
     }
 

@@ -31,13 +31,13 @@ import org.codehaus.plexus.PlexusContainer;
 
 @Named
 @Singleton
-public class DefaultPrompter implements Prompter {
+final class DefaultPrompter implements Prompter {
 
     private static final String PROMPTER_CLASS = "org.codehaus.plexus.components.interactivity.Prompter";
     private final PlexusContainer container;
 
     @Inject
-    public DefaultPrompter(PlexusContainer container) {
+    DefaultPrompter(PlexusContainer container) {
         this.container = container;
     }
 

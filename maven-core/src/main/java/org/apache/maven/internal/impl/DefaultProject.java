@@ -46,8 +46,8 @@ import static org.apache.maven.internal.impl.Utils.nonNull;
 
 public class DefaultProject implements Project {
 
-    private final InternalMavenSession session;
-    private final MavenProject project;
+    final InternalMavenSession session;
+    final MavenProject project;
     private final Packaging packaging;
 
     public DefaultProject(InternalMavenSession session, MavenProject project) {
@@ -60,14 +60,6 @@ public class DefaultProject implements Project {
         } finally {
             Thread.currentThread().setContextClassLoader(ttcl);
         }
-    }
-
-    public InternalMavenSession getSession() {
-        return session;
-    }
-
-    public MavenProject getProject() {
-        return project;
     }
 
     @Nonnull
@@ -143,7 +135,7 @@ public class DefaultProject implements Project {
 
     @Override
     public boolean isTopProject() {
-        return getBasedir().equals(getSession().getTopDirectory());
+        return getBasedir().equals(session.getTopDirectory());
     }
 
     @Override

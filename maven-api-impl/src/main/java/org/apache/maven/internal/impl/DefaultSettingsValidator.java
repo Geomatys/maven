@@ -33,7 +33,7 @@ import org.apache.maven.api.settings.Settings;
 
 /**
  */
-public class DefaultSettingsValidator {
+final class DefaultSettingsValidator {
 
     private static final String ID = "[\\w.-]+";
     private static final Pattern ID_REGEX = Pattern.compile(ID);

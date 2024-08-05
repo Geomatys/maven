@@ -45,7 +45,7 @@ import static org.apache.maven.internal.impl.Utils.nonNull;
 
 @Named
 @Singleton
-public class DefaultPluginXmlFactory implements PluginXmlFactory {
+final class DefaultPluginXmlFactory implements PluginXmlFactory {
     @Override
     public PluginDescriptor read(@Nonnull XmlReaderRequest request) throws XmlReaderException {
         nonNull(request, "request");

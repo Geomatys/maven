@@ -28,7 +28,7 @@ import org.apache.maven.api.RemoteRepository;
 import org.apache.maven.api.annotations.Nonnull;
 import org.eclipse.aether.graph.DependencyNode;
 
-class WrapperNode extends AbstractNode {
+final class WrapperNode extends AbstractNode {
     protected final Node delegate;
     protected final List<Node> children;
 

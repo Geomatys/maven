@@ -30,7 +30,7 @@ import static org.apache.maven.internal.impl.Utils.nonNull;
 
 @Named
 @Singleton
-public class DefaultArtifactFactory implements ArtifactFactory {
+final class DefaultArtifactFactory implements ArtifactFactory {
     @Override
     public Artifact create(@Nonnull ArtifactFactoryRequest request) {
         nonNull(request, "request");

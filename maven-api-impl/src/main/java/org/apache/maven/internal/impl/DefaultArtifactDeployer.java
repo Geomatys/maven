@@ -38,7 +38,7 @@ import static org.apache.maven.internal.impl.Utils.nonNull;
  */
 @Named
 @Singleton
-public class DefaultArtifactDeployer implements ArtifactDeployer {
+final class DefaultArtifactDeployer implements ArtifactDeployer {
 
     @Override
     public void deploy(@Nonnull ArtifactDeployerRequest request) {

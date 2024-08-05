@@ -38,11 +38,11 @@ import org.apache.maven.toolchain.ToolchainPrivate;
 
 @Named
 @Singleton
-public class DefaultToolchainManager implements ToolchainManager {
+final class DefaultToolchainManager implements ToolchainManager {
     private final DefaultToolchainManagerPrivate toolchainManagerPrivate;
 
     @Inject
-    public DefaultToolchainManager(DefaultToolchainManagerPrivate toolchainManagerPrivate) {
+    DefaultToolchainManager(DefaultToolchainManagerPrivate toolchainManagerPrivate) {
         this.toolchainManagerPrivate = toolchainManagerPrivate;
     }
 

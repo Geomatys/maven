@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.maven.internal.impl.standalone;
+package org.apache.maven.internal.impl;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -26,12 +26,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Supplier;
 
 import org.apache.maven.api.services.ModelBuilder;
-import org.apache.maven.internal.impl.DefaultModelUrlNormalizer;
-import org.apache.maven.internal.impl.DefaultModelVersionParser;
-import org.apache.maven.internal.impl.DefaultModelXmlFactory;
-import org.apache.maven.internal.impl.DefaultPluginConfigurationExpander;
-import org.apache.maven.internal.impl.DefaultSuperPomProvider;
-import org.apache.maven.internal.impl.DefaultUrlNormalizer;
 import org.apache.maven.internal.impl.model.BuildModelTransformer;
 import org.apache.maven.internal.impl.model.DefaultDependencyManagementImporter;
 import org.apache.maven.internal.impl.model.DefaultDependencyManagementInjector;

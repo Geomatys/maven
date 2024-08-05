@@ -52,13 +52,13 @@ import static org.apache.maven.internal.impl.Utils.nonNull;
 @Named
 @Typed
 @SessionScoped
-public class DefaultProjectManager implements ProjectManager {
+final class DefaultProjectManager implements ProjectManager {
 
     private final InternalMavenSession session;
     private final ArtifactManager artifactManager;
 
     @Inject
-    public DefaultProjectManager(InternalMavenSession session, ArtifactManager artifactManager) {
+    DefaultProjectManager(InternalMavenSession session, ArtifactManager artifactManager) {
         this.session = session;
         this.artifactManager = artifactManager;
     }
@@ -76,7 +76,7 @@ public class DefaultProjectManager implements ProjectManager {
     @Nonnull
     @Override
     public Collection<Artifact> getAttachedArtifacts(Project project) {
-        InternalMavenSession session = ((DefaultProject) project).getSession();
+        InternalMavenSession session = ((DefaultProject) project).session;
         Collection<Artifact> attached = map(
                 getMavenProject(project).getAttachedArtifacts(),
                 a -> session.getArtifact(RepositoryUtils.toArtifact(a)));
@@ -94,8 +94,8 @@ public class DefaultProjectManager implements ProjectManager {
     @Override
     public void attachArtifact(Project project, Artifact artifact, Path path) {
         getMavenProject(project)
-                .addAttachedArtifact(RepositoryUtils.toArtifact(
-                        ((DefaultProject) project).getSession().toArtifact(artifact)));
+                .addAttachedArtifact(
+                        RepositoryUtils.toArtifact(((DefaultProject) project).session.toArtifact(artifact)));
         artifactManager.setPath(artifact, path);
     }
 
@@ -158,13 +158,13 @@ public class DefaultProjectManager implements ProjectManager {
     @Override
     public List<RemoteRepository> getRemoteProjectRepositories(Project project) {
         return Collections.unmodifiableList(new MappedList<>(
-                ((DefaultProject) project).getProject().getRemoteProjectRepositories(), session::getRemoteRepository));
+                ((DefaultProject) project).project.getRemoteProjectRepositories(), session::getRemoteRepository));
     }
 
     @Override
     public List<RemoteRepository> getRemotePluginRepositories(Project project) {
         return Collections.unmodifiableList(new MappedList<>(
-                ((DefaultProject) project).getProject().getRemotePluginRepositories(), session::getRemoteRepository));
+                ((DefaultProject) project).project.getRemotePluginRepositories(), session::getRemoteRepository));
     }
 
     @Override
@@ -179,8 +179,7 @@ public class DefaultProjectManager implements ProjectManager {
 
     @Override
     public Map<String, String> getProperties(Project project) {
-        return Collections.unmodifiableMap(
-                new PropertiesAsMap(((DefaultProject) project).getProject().getProperties()));
+        return Collections.unmodifiableMap(new PropertiesAsMap(((DefaultProject) project).project.getProperties()));
     }
 
     @Override
@@ -193,6 +192,6 @@ public class DefaultProjectManager implements ProjectManager {
     }
 
     private MavenProject getMavenProject(Project project) {
-        return ((DefaultProject) project).getProject();
+        return ((DefaultProject) project).project;
     }
 }

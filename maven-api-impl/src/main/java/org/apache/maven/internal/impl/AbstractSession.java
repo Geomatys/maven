@@ -93,7 +93,7 @@ import org.eclipse.aether.artifact.ArtifactType;
 import static org.apache.maven.internal.impl.Utils.map;
 import static org.apache.maven.internal.impl.Utils.nonNull;
 
-public abstract class AbstractSession implements InternalSession {
+abstract class AbstractSession implements InternalSession {
 
     protected final RepositorySystemSession session;
     protected final RepositorySystem repositorySystem;
@@ -110,7 +110,7 @@ public abstract class AbstractSession implements InternalSession {
     private final Map<org.eclipse.aether.graph.Dependency, Dependency> allDependencies =
             Collections.synchronizedMap(new WeakHashMap<>());
 
-    public AbstractSession(
+    AbstractSession(
             RepositorySystemSession session,
             RepositorySystem repositorySystem,
             List<RemoteRepository> repositories,
@@ -157,7 +157,7 @@ public abstract class AbstractSession implements InternalSession {
     @Override
     public org.eclipse.aether.repository.RemoteRepository toRepository(RemoteRepository repository) {
         if (repository instanceof DefaultRemoteRepository) {
-            return ((DefaultRemoteRepository) repository).getRepository();
+            return ((DefaultRemoteRepository) repository).repository;
         } else {
             // TODO
             throw new UnsupportedOperationException("Not implemented yet");
@@ -167,7 +167,7 @@ public abstract class AbstractSession implements InternalSession {
     @Override
     public org.eclipse.aether.repository.LocalRepository toRepository(LocalRepository repository) {
         if (repository instanceof DefaultLocalRepository) {
-            return ((DefaultLocalRepository) repository).getRepository();
+            return ((DefaultLocalRepository) repository).repository;
         } else {
             // TODO
             throw new UnsupportedOperationException("Not implemented yet");
@@ -332,7 +332,7 @@ public abstract class AbstractSession implements InternalSession {
     public org.eclipse.aether.artifact.Artifact toArtifact(Artifact artifact) {
         Path path = getService(ArtifactManager.class).getPath(artifact).orElse(null);
         if (artifact instanceof DefaultArtifact) {
-            org.eclipse.aether.artifact.Artifact a = ((DefaultArtifact) artifact).getArtifact();
+            org.eclipse.aether.artifact.Artifact a = ((DefaultArtifact) artifact).artifact;
             if (Objects.equals(path, a.getPath())) {
                 return a;
             }

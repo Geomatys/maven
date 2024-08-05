@@ -33,7 +33,7 @@ import static org.apache.maven.internal.impl.Utils.nonNull;
 
 @Named
 @Singleton
-public class DefaultArtifactInstaller implements ArtifactInstaller {
+final class DefaultArtifactInstaller implements ArtifactInstaller {
 
     private final RepositorySystem repositorySystem;
 

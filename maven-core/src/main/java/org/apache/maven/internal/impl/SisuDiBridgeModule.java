@@ -55,7 +55,7 @@ import org.codehaus.plexus.PlexusContainer;
 import org.codehaus.plexus.component.repository.exception.ComponentLookupException;
 
 @Named
-class SisuDiBridgeModule extends AbstractModule {
+final class SisuDiBridgeModule extends AbstractModule {
 
     @Override
     protected void configure() {

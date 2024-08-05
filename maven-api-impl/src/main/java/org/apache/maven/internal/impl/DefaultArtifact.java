@@ -30,12 +30,12 @@ import static org.apache.maven.internal.impl.Utils.nonNull;
 /**
  * A wrapper class around a maven resolver artifact.
  */
-public class DefaultArtifact implements Artifact {
+final class DefaultArtifact implements Artifact {
     private final @Nonnull InternalSession session;
-    private final @Nonnull org.eclipse.aether.artifact.Artifact artifact;
+    final @Nonnull org.eclipse.aether.artifact.Artifact artifact;
     private final String key;
 
-    public DefaultArtifact(@Nonnull InternalSession session, @Nonnull org.eclipse.aether.artifact.Artifact artifact) {
+    DefaultArtifact(@Nonnull InternalSession session, @Nonnull org.eclipse.aether.artifact.Artifact artifact) {
         this.session = nonNull(session, "session");
         this.artifact = nonNull(artifact, "artifact");
         this.key = getGroupId()
@@ -46,10 +46,6 @@ public class DefaultArtifact implements Artifact {
                 + (getClassifier().isEmpty() ? "" : ":" + getClassifier())
                 + ':'
                 + getVersion();
-    }
-
-    public org.eclipse.aether.artifact.Artifact getArtifact() {
-        return artifact;
     }
 
     @Override

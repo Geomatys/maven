@@ -23,15 +23,15 @@ import org.apache.maven.api.annotations.Nonnull;
 import org.apache.maven.api.services.MessageBuilder;
 
 @Experimental
-public class DefaultMessageBuilder implements MessageBuilder {
+final class DefaultMessageBuilder implements MessageBuilder {
 
     private final StringBuilder buffer;
 
-    public DefaultMessageBuilder() {
+    DefaultMessageBuilder() {
         this(new StringBuilder());
     }
 
-    public DefaultMessageBuilder(StringBuilder buffer) {
+    DefaultMessageBuilder(StringBuilder buffer) {
         this.buffer = buffer;
     }
 

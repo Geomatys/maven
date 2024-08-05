@@ -55,7 +55,7 @@ import org.slf4j.LoggerFactory;
  */
 @Named
 @Singleton
-public class DefaultPackagingRegistry
+final class DefaultPackagingRegistry
         extends ExtensibleEnumRegistries.DefaultExtensibleEnumRegistry<Packaging, PackagingProvider>
         implements PackagingRegistry {
 
@@ -66,7 +66,7 @@ public class DefaultPackagingRegistry
     private final TypeRegistry typeRegistry;
 
     @Inject
-    public DefaultPackagingRegistry(Lookup lookup, TypeRegistry typeRegistry, List<PackagingProvider> providers) {
+    DefaultPackagingRegistry(Lookup lookup, TypeRegistry typeRegistry, List<PackagingProvider> providers) {
         super(providers);
         this.lookup = lookup;
         this.typeRegistry = typeRegistry;

@@ -158,13 +158,13 @@ public class DefaultLifecycleRegistry implements LifecycleRegistry {
         }
     }
 
-    static class WrappedLifecycle extends org.apache.maven.lifecycle.Lifecycle {
+    private static class WrappedLifecycle extends org.apache.maven.lifecycle.Lifecycle {
         WrappedLifecycle(Lifecycle lifecycle) {
             super(lifecycle);
         }
     }
 
-    abstract static class BaseLifecycleProvider implements Provider<org.apache.maven.lifecycle.Lifecycle> {
+    private abstract static class BaseLifecycleProvider implements Provider<org.apache.maven.lifecycle.Lifecycle> {
         @Inject
         private PlexusContainer lookup;
 
@@ -187,7 +187,7 @@ public class DefaultLifecycleRegistry implements LifecycleRegistry {
 
     @Singleton
     @Named(Lifecycle.CLEAN)
-    static class CleanLifecycleProvider extends BaseLifecycleProvider {
+    private static class CleanLifecycleProvider extends BaseLifecycleProvider {
         CleanLifecycleProvider() {
             super(Lifecycle.CLEAN);
         }
@@ -195,7 +195,7 @@ public class DefaultLifecycleRegistry implements LifecycleRegistry {
 
     @Singleton
     @Named(Lifecycle.DEFAULT)
-    static class DefaultLifecycleProvider extends BaseLifecycleProvider {
+    private static class DefaultLifecycleProvider extends BaseLifecycleProvider {
         DefaultLifecycleProvider() {
             super(Lifecycle.DEFAULT);
         }
@@ -203,7 +203,7 @@ public class DefaultLifecycleRegistry implements LifecycleRegistry {
 
     @Singleton
     @Named(Lifecycle.SITE)
-    static class SiteLifecycleProvider extends BaseLifecycleProvider {
+    private static class SiteLifecycleProvider extends BaseLifecycleProvider {
         SiteLifecycleProvider() {
             super(Lifecycle.SITE);
         }
@@ -211,13 +211,13 @@ public class DefaultLifecycleRegistry implements LifecycleRegistry {
 
     @Singleton
     @Named(Lifecycle.WRAPPER)
-    static class WrapperLifecycleProvider extends BaseLifecycleProvider {
+    private static class WrapperLifecycleProvider extends BaseLifecycleProvider {
         WrapperLifecycleProvider() {
             super(Lifecycle.WRAPPER);
         }
     }
 
-    static class CleanLifecycle implements Lifecycle {
+    private static class CleanLifecycle implements Lifecycle {
 
         private static final String MAVEN_CLEAN_PLUGIN_VERSION = "3.2.0";
 
@@ -240,7 +240,7 @@ public class DefaultLifecycleRegistry implements LifecycleRegistry {
         }
     }
 
-    static class DefaultLifecycle implements Lifecycle {
+    private static class DefaultLifecycle implements Lifecycle {
         @Override
         public String id() {
             return Lifecycle.DEFAULT;
@@ -275,7 +275,7 @@ public class DefaultLifecycleRegistry implements LifecycleRegistry {
         }
     }
 
-    static class SiteLifecycle implements Lifecycle {
+    private static class SiteLifecycle implements Lifecycle {
 
         private static final String MAVEN_SITE_PLUGIN_VERSION = "3.12.1";
 
@@ -303,7 +303,7 @@ public class DefaultLifecycleRegistry implements LifecycleRegistry {
         }
     }
 
-    static class WrapperLifecycle implements Lifecycle {
+    private static class WrapperLifecycle implements Lifecycle {
 
         private static final String MAVEN_WRAPPER_PLUGIN_VERSION = "3.2.0";
 

@@ -25,17 +25,12 @@ import org.apache.maven.api.annotations.Nonnull;
 
 import static org.apache.maven.internal.impl.Utils.nonNull;
 
-public class DefaultLocalRepository implements LocalRepository {
+final class DefaultLocalRepository implements LocalRepository {
 
-    private final @Nonnull org.eclipse.aether.repository.LocalRepository repository;
+    final @Nonnull org.eclipse.aether.repository.LocalRepository repository;
 
-    public DefaultLocalRepository(@Nonnull org.eclipse.aether.repository.LocalRepository repository) {
+    DefaultLocalRepository(@Nonnull org.eclipse.aether.repository.LocalRepository repository) {
         this.repository = nonNull(repository, "repository");
-    }
-
-    @Nonnull
-    public org.eclipse.aether.repository.LocalRepository getRepository() {
-        return repository;
     }
 
     @Nonnull

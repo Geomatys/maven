@@ -16,14 +16,13 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.maven.internal.impl.standalone;
+package org.apache.maven.internal.impl;
 
 import java.lang.reflect.Type;
 import java.util.Set;
 
 import org.apache.maven.di.Injector;
 import org.apache.maven.di.impl.Types;
-import org.apache.maven.internal.impl.ExtensibleEnumRegistries;
 import org.junit.jupiter.api.Test;
 
 class DiTest {

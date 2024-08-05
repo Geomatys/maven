@@ -23,11 +23,11 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.function.Function;
 
-public class MappedCollection<U, V> extends AbstractCollection<U> {
+final class MappedCollection<U, V> extends AbstractCollection<U> {
     private final Collection<V> list;
     private final Function<V, U> mapper;
 
-    public MappedCollection(Collection<V> list, Function<V, U> mapper) {
+    MappedCollection(Collection<V> list, Function<V, U> mapper) {
         this.list = list;
         this.mapper = mapper;
     }

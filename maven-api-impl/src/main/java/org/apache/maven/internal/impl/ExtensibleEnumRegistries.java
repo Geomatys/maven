@@ -44,15 +44,16 @@ import org.apache.maven.api.spi.ProjectScopeProvider;
 
 import static org.apache.maven.internal.impl.Utils.nonNull;
 
-public class ExtensibleEnumRegistries {
+final class ExtensibleEnumRegistries {
+    private ExtensibleEnumRegistries() {}
 
     @Named
     @SessionScoped
-    public static class DefaultPathScopeRegistry extends DefaultExtensibleEnumRegistry<PathScope, PathScopeProvider>
+    static class DefaultPathScopeRegistry extends DefaultExtensibleEnumRegistry<PathScope, PathScopeProvider>
             implements PathScopeRegistry {
 
         @Inject
-        public DefaultPathScopeRegistry(List<PathScopeProvider> providers) {
+        DefaultPathScopeRegistry(List<PathScopeProvider> providers) {
             super(
                     providers,
                     PathScope.MAIN_COMPILE,
@@ -64,28 +65,27 @@ public class ExtensibleEnumRegistries {
 
     @Named
     @SessionScoped
-    public static class DefaultProjectScopeRegistry
-            extends DefaultExtensibleEnumRegistry<ProjectScope, ProjectScopeProvider> implements ProjectScopeRegistry {
+    static class DefaultProjectScopeRegistry extends DefaultExtensibleEnumRegistry<ProjectScope, ProjectScopeProvider>
+            implements ProjectScopeRegistry {
 
         @Inject
-        public DefaultProjectScopeRegistry(List<ProjectScopeProvider> providers) {
+        DefaultProjectScopeRegistry(List<ProjectScopeProvider> providers) {
             super(providers, ProjectScope.MAIN, ProjectScope.TEST);
         }
     }
 
     @Named
     @Singleton
-    public static class DefaultLanguageRegistry extends DefaultExtensibleEnumRegistry<Language, LanguageProvider>
+    static class DefaultLanguageRegistry extends DefaultExtensibleEnumRegistry<Language, LanguageProvider>
             implements LanguageRegistry {
 
         @Inject
-        public DefaultLanguageRegistry(List<LanguageProvider> providers) {
+        DefaultLanguageRegistry(List<LanguageProvider> providers) {
             super(providers, Language.NONE, Language.JAVA_FAMILY);
         }
     }
 
-    public abstract static class DefaultExtensibleEnumRegistry<
-                    T extends ExtensibleEnum, P extends ExtensibleEnumProvider<T>>
+    abstract static class DefaultExtensibleEnumRegistry<T extends ExtensibleEnum, P extends ExtensibleEnumProvider<T>>
             implements ExtensibleEnumRegistry<T> {
 
         protected final Map<String, T> values;

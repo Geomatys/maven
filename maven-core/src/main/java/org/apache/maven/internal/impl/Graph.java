@@ -27,7 +27,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-class Graph {
+final class Graph {
     private enum DfsState {
         VISITING,
         VISITED

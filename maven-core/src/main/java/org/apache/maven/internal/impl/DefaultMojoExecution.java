@@ -49,10 +49,6 @@ public class DefaultMojoExecution implements MojoExecution {
         this.delegate = delegate;
     }
 
-    public org.apache.maven.plugin.MojoExecution getDelegate() {
-        return delegate;
-    }
-
     @Override
     public Plugin getPlugin() {
         return new Plugin() {

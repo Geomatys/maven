@@ -43,7 +43,7 @@ import org.apache.maven.api.annotations.Nonnull;
  * or module hierarchy, but not module source hierarchy. The latter is excluded because this class
  * is for path elements of compiled codes.
  */
-class PathModularization {
+final class PathModularization {
     /**
      * A unique constant for all non-modular dependencies.
      */

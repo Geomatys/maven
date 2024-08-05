@@ -29,7 +29,7 @@ import org.eclipse.aether.artifact.Artifact;
 import org.eclipse.aether.graph.Dependency;
 import org.eclipse.aether.graph.DependencyNode;
 
-public abstract class AbstractNode implements Node {
+abstract class AbstractNode implements Node {
 
     abstract org.eclipse.aether.graph.DependencyNode getDependencyNode();
 
