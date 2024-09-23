@@ -22,7 +22,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.function.Function;
+import java.util.function.BiFunction;
 
 import org.apache.maven.api.di.Inject;
 import org.apache.maven.api.di.Named;
@@ -31,6 +31,7 @@ import org.apache.maven.api.model.Build;
 import org.apache.maven.api.model.Model;
 import org.apache.maven.api.model.Reporting;
 import org.apache.maven.api.model.Resource;
+import org.apache.maven.api.model.Source;
 import org.apache.maven.api.services.ModelBuilderRequest;
 import org.apache.maven.api.services.model.ModelPathTranslator;
 import org.apache.maven.api.services.model.PathTranslator;
@@ -60,13 +61,14 @@ public class DefaultModelPathTranslator implements ModelPathTranslator {
         Build newBuild = null;
         if (build != null) {
             newBuild = Build.newBuilder(build)
+                    .sources(map(build.getSources(), this::alignToBaseDirectory, basedir))
                     .directory(alignToBaseDirectory(build.getDirectory(), basedir))
                     .sourceDirectory(alignToBaseDirectory(build.getSourceDirectory(), basedir))
                     .testSourceDirectory(alignToBaseDirectory(build.getTestSourceDirectory(), basedir))
                     .scriptSourceDirectory(alignToBaseDirectory(build.getScriptSourceDirectory(), basedir))
-                    .resources(map(build.getResources(), r -> alignToBaseDirectory(r, basedir)))
-                    .testResources(map(build.getTestResources(), r -> alignToBaseDirectory(r, basedir)))
-                    .filters(map(build.getFilters(), s -> alignToBaseDirectory(s, basedir)))
+                    .resources(map(build.getResources(), this::alignToBaseDirectory, basedir))
+                    .testResources(map(build.getTestResources(), this::alignToBaseDirectory, basedir))
+                    .filters(map(build.getFilters(), this::alignToBaseDirectory, basedir))
                     .outputDirectory(alignToBaseDirectory(build.getOutputDirectory(), basedir))
                     .testOutputDirectory(alignToBaseDirectory(build.getTestOutputDirectory(), basedir))
                     .build();
@@ -88,13 +90,23 @@ public class DefaultModelPathTranslator implements ModelPathTranslator {
         return model;
     }
 
-    private <T> List<T> map(List<T> resources, Function<T, T> mapper) {
+    /**
+     * Replaces in a new list all elements of the given list using the given function.
+     * If no list element has changed, then this method returns the previous list instance.
+     * The given list is never modified.
+     *
+     * @param resource the list for which to replace elements
+     * @param mapper one of the {@code this::alignToBaseDirectory} methods
+     * @param basedir the new base directory
+     * @return list with modified elements, or {@code resources} if there is no change
+     */
+    private <T> List<T> map(List<T> resources, BiFunction<T, Path, T> mapper, Path basedir) {
         List<T> newResources = null;
         if (resources != null) {
             for (int i = 0; i < resources.size(); i++) {
                 T resource = resources.get(i);
-                T newResource = mapper.apply(resource);
-                if (newResource != null) {
+                T newResource = mapper.apply(resource, basedir);
+                if (newResource != resource) {
                     if (newResources == null) {
                         newResources = new ArrayList<>(resources);
                     }
@@ -105,18 +117,65 @@ public class DefaultModelPathTranslator implements ModelPathTranslator {
         return newResources;
     }
 
+    /**
+     * Returns a source with all properties identical to the given source, except the paths
+     * which are resolved according the given {@code basedir}. If the paths are unchanged,
+     * then this method returns the previous instance.
+     *
+     * @param source the source to relocate, or {@code null}
+     * @param basedir the new base directory
+     * @return relocated source, or {@code null} if the given source was null
+     */
+    @SuppressWarnings("StringEquality") // Identity comparison is ok in this method.
+    private Source alignToBaseDirectory(Source source, Path basedir) {
+        if (source != null) {
+            String oldDir = source.getDirectory();
+            String newDir = alignToBaseDirectory(oldDir, basedir);
+            if (newDir != oldDir) {
+                source = source.withDirectory(newDir);
+            }
+            oldDir = source.getTargetPath();
+            newDir = alignToBaseDirectory(oldDir, basedir);
+            if (newDir != oldDir) {
+                source = source.withTargetPath(newDir);
+            }
+        }
+        return source;
+    }
+
+    /**
+     * Returns a resource with all properties identical to the given resource, except the paths
+     * which are resolved according the given {@code basedir}. If the paths are unchanged, then
+     * this method returns the previous instance.
+     *
+     * @param resource the resource to relocate, or {@code null}
+     * @param basedir the new base directory
+     * @return relocated resource, or {@code null} if the given resource was null
+     */
+    @SuppressWarnings("StringEquality") // Identity comparison is ok in this method.
     private Resource alignToBaseDirectory(Resource resource, Path basedir) {
         if (resource != null) {
-            String newDir = alignToBaseDirectory(resource.getDirectory(), basedir);
-            if (newDir != null) {
+            String oldDir = resource.getDirectory();
+            String newDir = alignToBaseDirectory(oldDir, basedir);
+            if (newDir != oldDir) {
                 return resource.withDirectory(newDir);
             }
         }
         return resource;
     }
 
+    /**
+     * Returns a path relocated to the given base directory. If the result of this operation
+     * is the same path as before, then this method returns the old {@code path} instance.
+     * It is okay for the caller to compare the {@link String} instances using the identity
+     * comparator for detecting changes.
+     *
+     * @param path the path to relocate, or {@code null}
+     * @param basedir the new base directory
+     * @return relocated path, or {@code null} if the given path was null
+     */
     private String alignToBaseDirectory(String path, Path basedir) {
         String newPath = pathTranslator.alignToBaseDirectory(path, basedir);
-        return Objects.equals(path, newPath) ? null : newPath;
+        return Objects.equals(path, newPath) ? path : newPath;
     }
 }

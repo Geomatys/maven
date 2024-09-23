@@ -33,14 +33,17 @@ import org.apache.maven.api.model.Build;
 import org.apache.maven.api.model.Model;
 import org.apache.maven.api.model.Reporting;
 import org.apache.maven.api.model.Resource;
+import org.apache.maven.api.model.Source;
 import org.apache.maven.model.building.ModelBuildingRequest;
 
 /**
  * Resolves relative paths within a model against a specific base directory.
  *
+ * @deprecated Replaced by {@link org.apache.maven.internal.impl.model.DefaultModelPathTranslator}.
  */
 @Named
 @Singleton
+@Deprecated(since = "4.0.0")
 public class DefaultModelPathTranslator implements ModelPathTranslator {
 
     private final PathTranslator pathTranslator;
@@ -70,6 +73,7 @@ public class DefaultModelPathTranslator implements ModelPathTranslator {
         Build newBuild = null;
         if (build != null) {
             newBuild = Build.newBuilder(build)
+                    .sources(map(build.getSources(), (r) -> alignToBaseDirectory(r, basedir)))
                     .directory(alignToBaseDirectory(build.getDirectory(), basedir))
                     .sourceDirectory(alignToBaseDirectory(build.getSourceDirectory(), basedir))
                     .testSourceDirectory(alignToBaseDirectory(build.getTestSourceDirectory(), basedir))
@@ -114,10 +118,29 @@ public class DefaultModelPathTranslator implements ModelPathTranslator {
         return newResources;
     }
 
+    @SuppressWarnings("StringEquality") // Identity comparison is ok in this method.
+    private Source alignToBaseDirectory(Source source, Path basedir) {
+        if (source != null) {
+            String oldDir = source.getDirectory();
+            String newDir = alignToBaseDirectory(oldDir, basedir);
+            if (newDir != oldDir) {
+                source = source.withDirectory(newDir);
+            }
+            oldDir = source.getTargetPath();
+            newDir = alignToBaseDirectory(oldDir, basedir);
+            if (newDir != oldDir) {
+                source = source.withTargetPath(newDir);
+            }
+        }
+        return source;
+    }
+
+    @SuppressWarnings("StringEquality") // Identity comparison is ok in this method.
     private Resource alignToBaseDirectory(Resource resource, Path basedir) {
         if (resource != null) {
-            String newDir = alignToBaseDirectory(resource.getDirectory(), basedir);
-            if (newDir != null) {
+            String oldDir = resource.getDirectory();
+            String newDir = alignToBaseDirectory(oldDir, basedir);
+            if (newDir != oldDir) {
                 return resource.withDirectory(newDir);
             }
         }
@@ -126,6 +149,6 @@ public class DefaultModelPathTranslator implements ModelPathTranslator {
 
     private String alignToBaseDirectory(String path, Path basedir) {
         String newPath = pathTranslator.alignToBaseDirectory(path, basedir);
-        return Objects.equals(path, newPath) ? null : newPath;
+        return Objects.equals(path, newPath) ? path : newPath;
     }
 }
