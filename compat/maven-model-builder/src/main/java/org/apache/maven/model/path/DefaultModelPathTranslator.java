@@ -33,6 +33,7 @@ import org.apache.maven.api.model.Build;
 import org.apache.maven.api.model.Model;
 import org.apache.maven.api.model.Reporting;
 import org.apache.maven.api.model.Resource;
+import org.apache.maven.api.model.Source;
 import org.apache.maven.model.building.ModelBuildingRequest;
 
 /**
@@ -72,6 +73,7 @@ public class DefaultModelPathTranslator implements ModelPathTranslator {
         Build newBuild = null;
         if (build != null) {
             newBuild = Build.newBuilder(build)
+                    .sources(map(build.getSources(), (r) -> alignToBaseDirectory(r, basedir)))
                     .directory(alignToBaseDirectory(build.getDirectory(), basedir))
                     .sourceDirectory(alignToBaseDirectory(build.getSourceDirectory(), basedir))
                     .testSourceDirectory(alignToBaseDirectory(build.getTestSourceDirectory(), basedir))
@@ -114,6 +116,22 @@ public class DefaultModelPathTranslator implements ModelPathTranslator {
             }
         }
         return newResources;
+    }
+
+    private Source alignToBaseDirectory(Source source, Path basedir) {
+        if (source != null) {
+            String oldDir = source.getDirectory();
+            String newDir = mayAlignToBaseDirectoryOrNull(oldDir, basedir);
+            if (newDir != null) {
+                source = source.withDirectory(newDir);
+            }
+            oldDir = source.getTargetPath();
+            newDir = mayAlignToBaseDirectoryOrNull(oldDir, basedir);
+            if (newDir != null) {
+                source = source.withTargetPath(newDir);
+            }
+        }
+        return source;
     }
 
     private Resource alignToBaseDirectory(Resource resource, Path basedir) {
