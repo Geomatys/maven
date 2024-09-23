@@ -26,7 +26,6 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -65,7 +64,7 @@ public class ConsumerPomBuilderTest extends AbstractRepositoryTestCase {
             project = new MavenProject(model);
             project.setRootDirectory(Paths.get("src/test/resources/consumer/trivial"));
             project.setOriginalModel(model);
-            project.setRemoteArtifactRepositories(Collections.singletonList(new MavenArtifactRepository(
+            project.setRemoteArtifactRepositories(List.of(new MavenArtifactRepository(
                     "central", "http://repo.maven.apache.org/", new DefaultRepositoryLayout(), null, null)));
         }
         Model model = builder.build(session, project, file);
@@ -83,7 +82,7 @@ public class ConsumerPomBuilderTest extends AbstractRepositoryTestCase {
                     new org.apache.maven.model.Model(new MavenStaxReader().read(inputStream));
             project = new MavenProject(model);
             project.setRootDirectory(Paths.get("src/test/resources/consumer/simple"));
-            project.setRemoteArtifactRepositories(Collections.singletonList(new MavenArtifactRepository(
+            project.setRemoteArtifactRepositories(List.of(new MavenArtifactRepository(
                     "central", "http://repo.maven.apache.org/", new DefaultRepositoryLayout(), null, null)));
             project.setOriginalModel(model);
         }
