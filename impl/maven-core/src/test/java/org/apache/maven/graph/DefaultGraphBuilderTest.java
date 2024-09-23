@@ -19,7 +19,6 @@
 package org.apache.maven.graph;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -55,8 +54,6 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import static java.util.Arrays.asList;
-import static java.util.Collections.emptyList;
-import static java.util.Collections.singletonList;
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.toList;
 import static org.apache.maven.execution.MavenExecutionRequest.REACTOR_MAKE_DOWNSTREAM;
@@ -345,7 +342,7 @@ class DefaultGraphBuilderTest {
         MavenProject projectParent = getMavenProject(PARENT_MODULE);
         MavenProject projectModuleD = getMavenProject(MODULE_D, projectParent, "bom");
 
-        projectParent.setCollectedProjects(singletonList(projectModuleD));
+        projectParent.setCollectedProjects(List.of(projectModuleD));
 
         // Set up needed mocks
         when(session.getRequest()).thenReturn(mavenExecutionRequest);
@@ -401,8 +398,8 @@ class DefaultGraphBuilderTest {
                 .collect(Collectors.toMap(MavenProject::getArtifactId, identity()));
 
         // Set dependencies and modules
-        projectModuleB.setDependencies(singletonList(toDependency(projectModuleA)));
-        projectModuleC2.setDependencies(singletonList(toDependency(projectModuleB)));
+        projectModuleB.setDependencies(List.of(toDependency(projectModuleA)));
+        projectModuleC2.setDependencies(List.of(toDependency(projectModuleB)));
         projectParent.setCollectedProjects(asList(
                 projectIndependentModule,
                 projectModuleA,
@@ -438,7 +435,6 @@ class DefaultGraphBuilderTest {
         mavenProject.setArtifactId(artifactId);
         mavenProject.setVersion("1.0");
         mavenProject.setPomFile(new File(artifactId, "pom.xml"));
-        mavenProject.setCollectedProjects(new ArrayList<>());
         return mavenProject;
     }
 
@@ -472,10 +468,10 @@ class DefaultGraphBuilderTest {
 
     static class ScenarioBuilder {
         private String description;
-        private List<String> activeRequiredProjects = emptyList();
-        private List<String> activeOptionalProjects = emptyList();
-        private List<String> inactiveRequiredProjects = emptyList();
-        private List<String> inactiveOptionalProjects = emptyList();
+        private List<String> activeRequiredProjects = List.of();
+        private List<String> activeOptionalProjects = List.of();
+        private List<String> inactiveRequiredProjects = List.of();
+        private List<String> inactiveOptionalProjects = List.of();
         private String resumeFrom = "";
         private String makeBehavior = "";
         private File requestedPom = new File(PARENT_MODULE, "pom.xml");

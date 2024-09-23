@@ -27,7 +27,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.apache.maven.artifact.handler.ArtifactHandler;
 import org.apache.maven.artifact.handler.DefaultArtifactHandler;
@@ -171,21 +170,29 @@ public class RepositoryUtils {
 
         List<Exclusion> excl = Optional.ofNullable(exclusions).orElse(Collections.emptyList()).stream()
                 .map(RepositoryUtils::toExclusion)
-                .collect(Collectors.toList());
+                .toList();
         return new Dependency(result, artifact.getScope(), artifact.isOptional(), excl);
     }
 
+    /**
+     * Converts the given list of artifact repositories to a list of remote repositories.
+     * The returned list is immutable, therefore the caller do not need to protect this
+     * list with calls to {@link Collections#unmodifiableList(List)}.
+     *
+     * @param repos the list of artifact repositories to convert
+     * @return the remote repositories computed from the given list
+     */
     public static List<RemoteRepository> toRepos(List<ArtifactRepository> repos) {
-        return Optional.ofNullable(repos).orElse(Collections.emptyList()).stream()
-                .map(RepositoryUtils::toRepo)
-                .collect(Collectors.toList());
+        if (repos == null) {
+            return Collections.emptyList();
+        }
+        return repos.stream().map(RepositoryUtils::toRepo).toList();
     }
 
     public static RemoteRepository toRepo(ArtifactRepository repo) {
         RemoteRepository result = null;
         if (repo != null) {
-            RemoteRepository.Builder builder =
-                    new RemoteRepository.Builder(repo.getId(), getLayout(repo), repo.getUrl());
+            var builder = new RemoteRepository.Builder(repo.getId(), getLayout(repo), repo.getUrl());
             builder.setSnapshotPolicy(toPolicy(repo.getSnapshots()));
             builder.setReleasePolicy(toPolicy(repo.getReleases()));
             builder.setAuthentication(toAuthentication(repo.getAuthentication()));
@@ -294,7 +301,7 @@ public class RepositoryUtils {
 
         List<Exclusion> exclusions = dependency.getExclusions().stream()
                 .map(RepositoryUtils::toExclusion)
-                .collect(Collectors.toList());
+                .toList();
 
         return new Dependency(
                 artifact,
@@ -319,6 +326,7 @@ public class RepositoryUtils {
             this.handlerManager = handlerManager;
         }
 
+        @Override
         public ArtifactType get(String stereotypeId) {
             ArtifactHandler handler = handlerManager.getArtifactHandler(stereotypeId);
             return newArtifactType(stereotypeId, handler);
@@ -326,7 +334,7 @@ public class RepositoryUtils {
     }
 
     public static Collection<Artifact> toArtifacts(Collection<org.apache.maven.artifact.Artifact> artifactsToConvert) {
-        return artifactsToConvert.stream().map(RepositoryUtils::toArtifact).collect(Collectors.toList());
+        return artifactsToConvert.stream().map(RepositoryUtils::toArtifact).toList();
     }
 
     public static WorkspaceRepository getWorkspace(RepositorySystemSession session) {

@@ -1041,7 +1041,7 @@ public class MavenProject implements Cloneable {
     public List<Plugin> getBuildPlugins() {
         Build build = getModel().getBuild();
         if (build == null) {
-            return Collections.emptyList();
+            return List.of();
         }
         return Collections.unmodifiableList(build.getPlugins());
     }
@@ -1355,7 +1355,7 @@ public class MavenProject implements Cloneable {
                 return Collections.unmodifiableList(extensions);
             }
         }
-        return Collections.emptyList();
+        return List.of();
     }
 
     public void addProjectReference(@Nonnull MavenProject project) {
@@ -1857,7 +1857,7 @@ public class MavenProject implements Cloneable {
     @Deprecated
     public List<ReportPlugin> getReportPlugins() {
         if (getModel().getReporting() == null) {
-            return Collections.emptyList();
+            return List.of();
         }
         return Collections.unmodifiableList(getModel().getReporting().getPlugins());
     }
